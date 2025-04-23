@@ -9,71 +9,70 @@
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 15px;
       background-color: #F5F5F5; /* 淺灰色背景，舒適不刺眼 */
       color: #212121; /* 黑色文字，高對比度 */
     }
 
     h1 {
-      font-size: 44px; /* 標題更大 */
+      font-size: 32px; /* 標題適中 */
       color: #212121;
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       background-color: #FFC107; /* 台灣計程車黃色 */
       padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 輕微陰影，增加層次感 */
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* 輕微陰影，增加層次感 */
     }
 
     .form-group {
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       width: 100%;
       max-width: 100%; /* 手機上佔滿寬度 */
     }
 
     label {
       display: block;
-      font-size: 32px; /* 標籤字體更大 */
+      font-size: 24px; /* 標籤字體適中 */
       font-weight: bold;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       color: #212121;
     }
 
     input, textarea {
-      padding: 20px; /* 增大內邊距，方便點擊 */
-      font-size: 40px; /* 輸入框字體更大 */
+      padding: 12px; /* 內邊距適中，方便點擊 */
+      font-size: 20px; /* 輸入框字體適中 */
       width: 100%;
       box-sizing: border-box;
       border: 2px solid #212121; /* 黑色邊框 */
-      border-radius: 10px;
+      border-radius: 8px;
       background-color: #FFFFFF; /* 白色背景 */
       color: #212121;
-      line-height: 1.5; /* 增加行高 */
+      line-height: 1.4; /* 適中行高 */
       -webkit-appearance: none; /* 移除瀏覽器預設樣式 */
       -moz-appearance: none;
       appearance: none;
     }
 
-
     textarea {
-      height: 200px; /* 備註欄更大 */
+      height: 120px; /* 備註欄適中 */
       resize: vertical;
     }
 
     button {
-      padding: 25px; /* 按鈕更大 */
-      font-size: 44px; /* 按鈕字體更大 */
-      width: 50%;
-      max-width: 50%;
+      padding: 15px; /* 按鈕適中 */
+      font-size: 24px; /* 按鈕字體適中 */
+      width: 60%;
+      max-width: 60%;
       background-color: #212121; /* 黑色按鈕 */
       color: #FFC107; /* 黃色文字 */
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
       display: block;
-      margin: 40px auto;
+      margin: 30px auto;
       transition: background-color 0.3s;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     }
 
     button:hover {
@@ -82,18 +81,18 @@
 
     .error {
       color: #D32F2F; /* 紅色錯誤提示，稍暗以減少刺眼 */
-      font-size: 32px; /* 錯誤訊息字體更大 */
+      font-size: 20px; /* 錯誤訊息字體適中 */
       text-align: center;
-      margin-top: 20px;
+      margin-top: 15px;
       display: none;
     }
 
     .debug-log {
       color: #555555;
-      font-size: 24px;
+      font-size: 18px;
       text-align: center;
-      margin-top: 20px;
-      padding: 10px;
+      margin-top: 15px;
+      padding: 8px;
       background-color: #FFFFFF;
       border: 1px solid #212121;
       border-radius: 5px;
@@ -107,62 +106,52 @@
       }
 
       h1 {
-        font-size: 40px;
-        padding: 15px;
+        font-size: 28px;
+        padding: 12px;
       }
 
       label {
-        font-size: 38px;
+        font-size: 20px;
       }
 
       input, textarea {
-        font-size: 38px;
-        padding: 15px;
+        font-size: 18px;
+        padding: 10px;
       }
 
-      /* input[type="date"], input[type="time"] {
-        padding: 15px;
-        width: 100%;
-      } */
-
       button {
-        font-size: 38px;
-        padding: 20px;
-        width: 50%;
+        font-size: 20px;
+        padding: 12px;
+        width: 70%;
       }
 
       .error, .debug-log {
-        font-size: 28px;
+        font-size: 18px;
       }
     }
 
     @media (min-width: 481px) and (max-width: 768px) {
       h1 {
-        font-size: 44px;
+        font-size: 30px;
       }
 
       label {
-        font-size: 40px;
+        font-size: 22px;
       }
 
       input, textarea {
-        font-size: 40px;
-        padding: 18px;
+        font-size: 19px;
+        padding: 11px;
       }
 
-      /* input[type="date"], input[type="time"] {
-        padding: 18px;
-        width: 100%;
-      } */
-
       button {
-        font-size: 40px;
-        padding: 22px;
-        width: 50%;
+        font-size: 22px;
+        padding: 14px;
+        width: 65%;
       }
 
       .error, .debug-log {
-        font-size: 30px;
+        font-size: 19px;
       }
     }
 
