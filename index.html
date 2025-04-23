@@ -1,28 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-  <title>計程車叫車表單</title>
-  <script src="https://static.line-scdn.net/liff/edge/2/liff.js" onerror="tryFallbackLiffScript()"></script>
-  <script id="liff-fallback"></script>
-  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-  <script>eruda.init();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>叫車表單</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/liff.js"></script>
   <style>
-    /* 表單樣式 */
-    body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background-color: #F5F5F5; color: #212121; }
-    h1 { font-size: 56px; color: #212121; text-align: center; margin-bottom: 40px; background-color: #FFC107; padding: 20px; border-radius: 10px; }
-    .form-group { margin-bottom: 40px; width: 100%; max-width: 100%; }
-    label { display: block; font-size: 44px; font-weight: bold; margin-bottom: 15px; color: #212121; }
-    input, textarea { padding: 20px; font-size: 40px; width: 100%; box-sizing: border-box; border: 2px solid #212121; border-radius: 10px; }
-    button { padding: 25px; font-size: 44px; width: 50%; background-color: #212121; color: #FFC107; border: none; border-radius: 10px; cursor: pointer; display: block; margin: 40px auto; }
-    button:hover { background-color: #333333; }
-    .error { color: #D32F2F; font-size: 32px; text-align: center; margin-top: 20px; display: none; }
-    .debug-log { color: #555555; font-size: 24px; text-align: center; margin-top: 20px; padding: 10px; background-color: #FFFFFF; border: 1px solid #212121; border-radius: 5px; display: block; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    textarea {
+      height: 100px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error {
+      color: red;
+      display: none;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-  <h1 id="formTitle">即時叫車表單</h1>
+  <h1 id="formTitle">叫車表單</h1>
   <form id="customForm">
     <input type="hidden" id="userId" name="userId" value="">
+    <input type="hidden" id="formType" name="formType" value="">
     <div class="form-group">
       <label for="date">日期</label>
       <input type="date" id="date" name="date" required>
@@ -49,34 +80,104 @@
     </div>
     <button type="submit">提交</button>
     <p id="error" class="error"></p>
-    <p id="debugLog" class="debug-log">頁面載入中...</p>
   </form>
 
   <script>
-    const API_URL = 'http://localhost:3000'; // 後端伺服器的 API URL
+    // 從 URL 獲取 formType
+    const urlParams = new URLSearchParams(window.location.search);
+    const formType = urlParams.get('formType')?.toLowerCase();
+    const validFormTypes = ['instant', 'booking'];
+    const error = document.getElementById('error');
 
-    document.getElementById('customForm').addEventListener('submit', (e) => {
+    // LIFF ID 根據 formType 設置
+    const liffIds = {
+      instant: '2007299352-mGvOWvOn',
+      booking: '2007299352-O3J0xJ0m'
+    };
+
+    // 動態設置表單標題和 formType
+    if (!formType || !validFormTypes.includes(formType)) {
+      error.textContent = '無效的表單類型，請透過圖文選單進入';
+      error.style.display = 'block';
+      document.getElementById('customForm').style.display = 'none';
+    } else {
+      document.getElementById('formTitle').textContent = formType === 'instant' ? '即時叫車表單' : '預約叫車表單';
+      document.getElementById('formType').value = formType;
+    }
+
+    // 初始化 LIFF
+    window.onload = function() {
+      error.style.display = 'none';
+      const liffId = liffIds[formType];
+
+      if (!liffId) {
+        error.textContent = '無效的 LIFF ID';
+        error.style.display = 'block';
+        return;
+      }
+
+      liff.init({ liffId }).then(() => {
+        console.log('LIFF 初始化成功');
+        if (!liff.isLoggedIn()) {
+          error.textContent = '請先加入我們的 LINE Bot 以繼續操作';
+          error.style.display = 'block';
+          liff.login();
+          return;
+        }
+        liff.getProfile().then(profile => {
+          const userId = profile.userId;
+          console.log('從 LIFF 獲取的 userId: ' + userId);
+          if (!userId) {
+            error.textContent = '無法獲取 UserID，請重新載入頁面';
+            error.style.display = 'block';
+            return;
+          }
+          document.getElementById('userId').value = userId;
+          console.log('已將 userId 設置到表單: ' + userId);
+        }).catch(err => {
+          console.error('無法獲取使用者資訊: ', err);
+          error.textContent = '無法獲取使用者資訊，請確保您已加入 LINE Bot：' + err.message;
+          error.style.display = 'block';
+        });
+      }).catch(err => {
+        console.error('LIFF 初始化失敗: ', err);
+        error.textContent = 'LIFF 初始化失敗，請檢查 LIFF ID 和入口 URL：' + err.message;
+        error.style.display = 'block';
+      });
+    };
+
+    // 表單提交
+    document.getElementById('customForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      error.style.display = 'none';
+
+      const userId = document.getElementById('userId').value;
+      if (!userId) {
+        error.textContent = '無法獲取 UserID，請確保您已加入 LINE Bot';
+        error.style.display = 'block';
+        return;
+      }
 
       const formData = new FormData(e.target);
+      console.log('提交的 FormData: ', Array.from(formData.entries()));
 
-      fetch(`${API_URL}/submit`, {
-        method: 'POST',
-        body: JSON.stringify(Object.fromEntries(formData)),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(response => {
-          if (!response.ok) throw new Error('伺服器回應錯誤: ' + response.statusText);
-          return response.json();
-        })
-        .then(result => {
-          alert(result.message);
-        })
-        .catch(err => {
-          console.error('提交失敗:', err.message);
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzkl6ijZmYwb_orkxlRO3pK33RoYEmgPYxqFPJWrRNVhvCzegZ8Q1ZePjHYbkyILhxLQw/exec', {
+          method: 'POST',
+          body: formData
         });
+        const result = await response.text();
+        if (response.ok) {
+          alert(result);
+          liff.closeWindow();
+        } else {
+          throw new Error(result);
+        }
+      } catch (err) {
+        console.error('提交失敗: ', err);
+        error.textContent = '提交失敗: ' + err.message;
+        error.style.display = 'block';
+      }
     });
   </script>
 </body>
