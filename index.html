@@ -54,41 +54,6 @@
       appearance: none;
     }
 
-    /* 針對日期和時間欄位進行調整 */
-    input[type="date"], input[type="time"] {
-      padding: 20px; /* 與其他欄位保持一致 */
-      font-family: 'Arial', sans-serif;
-      width: 100%; /* 確保寬度 100% */
-      box-sizing: border-box;
-      line-height: 1.5;
-      background-color: #FFFFFF;
-      border: 2px solid #212121;
-      border-radius: 10px;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      position: relative;
-    }
-
-    /* 自訂日期和時間欄位的選擇器樣式（可選） */
-    input[type="date"]::-webkit-calendar-picker-indicator,
-    input[type="time"]::-webkit-calendar-picker-indicator {
-      opacity: 0; /* 隱藏預設箭頭 */
-      position: absolute;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-    }
-
-    /* 自訂箭頭圖標（可選） */
-    input[type="date"],
-    input[type="time"] {
-      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMTZsLTggNi00LTYtOC02aDE2bC04IDZ6IiBmaWxsPSIjMjEyMTIxIi8+PC9zdmc+'); /* 自訂下拉箭頭 */
-      background-repeat: no-repeat;
-      background-position: right 20px center;
-      background-size: 30px;
-    }
 
     textarea {
       height: 200px; /* 備註欄更大 */
