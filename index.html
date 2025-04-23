@@ -7,47 +7,200 @@
   <script src="https://static.line-scdn.net/liff/edge/2/liff.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #F5F5F5; /* 淺灰色背景，舒適不刺眼 */
+      color: #212121; /* 黑色文字，高對比度 */
     }
+
     h1 {
+      font-size: 56px; /* 標題更大 */
+      color: #212121;
       text-align: center;
+      margin-bottom: 40px;
+      background-color: #FFC107; /* 台灣計程車黃色 */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 輕微陰影，增加層次感 */
     }
+
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 40px;
+      width: 100%;
+      max-width: 100%; /* 手機上佔滿寬度 */
     }
+
     label {
       display: block;
-      margin-bottom: 5px;
+      font-size: 44px; /* 標籤字體更大 */
       font-weight: bold;
+      margin-bottom: 15px;
+      color: #212121;
     }
-    input, textarea, button {
-      padding: 8px;
+
+    input, textarea {
+      padding: 20px; /* 增大內邊距，方便點擊 */
+      font-size: 40px; /* 輸入框字體更大 */
       width: 100%;
       box-sizing: border-box;
+      border: 2px solid #212121; /* 黑色邊框 */
+      border-radius: 10px;
+      background-color: #FFFFFF; /* 白色背景 */
+      color: #212121;
+      line-height: 1.5; /* 增加行高 */
+      -webkit-appearance: none; /* 移除瀏覽器預設樣式 */
+      -moz-appearance: none;
+      appearance: none;
     }
-    textarea {
-      height: 100px;
+
+    /* 針對日期和時間欄位進行調整 */
+    input[type="date"], input[type="time"] {
+      padding: 20px; /* 與其他欄位保持一致 */
+      font-family: 'Arial', sans-serif;
+      width: 100%; /* 確保寬度 100% */
+      box-sizing: border-box;
+      line-height: 1.5;
+      background-color: #FFFFFF;
+      border: 2px solid #212121;
+      border-radius: 10px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      position: relative;
     }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
+
+    /* 自訂日期和時間欄位的選擇器樣式（可選） */
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      opacity: 0; /* 隱藏預設箭頭 */
+      position: absolute;
+      right: 20px;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
-      font-size: 16px;
     }
+
+    /* 自訂箭頭圖標（可選） */
+    input[type="date"],
+    input[type="time"] {
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMTZsLTggNi00LTYtOC02aDE2bC04IDZ6IiBmaWxsPSIjMjEyMTIxIi8+PC9zdmc+'); /* 自訂下拉箭頭 */
+      background-repeat: no-repeat;
+      background-position: right 20px center;
+      background-size: 30px;
+    }
+
+    textarea {
+      height: 200px; /* 備註欄更大 */
+      resize: vertical;
+    }
+
+    button {
+      padding: 25px; /* 按鈕更大 */
+      font-size: 44px; /* 按鈕字體更大 */
+      width: 50%;
+      max-width: 50%;
+      background-color: #212121; /* 黑色按鈕 */
+      color: #FFC107; /* 黃色文字 */
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 40px auto;
+      transition: background-color 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
     button:hover {
-      background-color: #45a049;
+      background-color: #333333; /* 按鈕懸停時略亮 */
     }
+
     .error {
-      color: red;
-      display: none;
-      margin-top: 10px;
+      color: #D32F2F; /* 紅色錯誤提示，稍暗以減少刺眼 */
+      font-size: 32px; /* 錯誤訊息字體更大 */
       text-align: center;
+      margin-top: 20px;
+      display: none;
     }
+
+    .debug-log {
+      color: #555555;
+      font-size: 24px;
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #FFFFFF;
+      border: 1px solid #212121;
+      border-radius: 5px;
+      display: none;
+    }
+
+    /* RWD 設置，針對不同手機尺寸 */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 40px;
+        padding: 15px;
+      }
+
+      label {
+        font-size: 38px;
+      }
+
+      input, textarea {
+        font-size: 38px;
+        padding: 15px;
+      }
+
+      input[type="date"], input[type="time"] {
+        padding: 15px;
+        width: 100%;
+      }
+
+      button {
+        font-size: 38px;
+        padding: 20px;
+        width: 50%;
+      }
+
+      .error, .debug-log {
+        font-size: 28px;
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 768px) {
+      h1 {
+        font-size: 44px;
+      }
+
+      label {
+        font-size: 40px;
+      }
+
+      input, textarea {
+        font-size: 40px;
+        padding: 18px;
+      }
+
+      input[type="date"], input[type="time"] {
+        padding: 18px;
+        width: 100%;
+      }
+
+      button {
+        font-size: 40px;
+        padding: 22px;
+        width: 50%;
+      }
+
+      .error, .debug-log {
+        font-size: 30px;
+      }
+    }
+
     #customForm {
       display: none; /* 初始隱藏表單，直到 LIFF 初始化完成 */
     }
