@@ -342,12 +342,10 @@
         const phone = formData.get('phone');
         const notes = formData.get('notes');
         const now = new Date();
-        const orderNumber = now.getFullYear() + String(now.getMonth() + 1).padStart(2, '0') +
-                           String(now.getDate()).padStart(2, '0') + String(now.getHours()).padStart(2, '0') +
-                           String(now.getMinutes()).padStart(2, '0') + String(now.getSeconds()).padStart(2, '0') +
-                           String(now.getMilliseconds()).padStart(3, '0') + "-" + userId.slice(-4);
+        const orderNumber = String(now.getMonth() + 1).padStart(2, '0') +
+                           String(now.getDate()).padStart(2, '0')  + "-" + userId.slice(-4);
 
-        const textMessage = `訂單摘要\n訂單編號: ${orderNumber}\n類型: ${formType === 'instant' ? '即時叫車' : '預約叫車'}\n-----------------------------\n日期: ${date || '未填寫'}\n時間: ${time || '未填寫'}\n地點: ${location || '未填寫'}\n人數: ${numberOfPeople || '未填寫'}\n電話: ${phone ? '0' + phone : '未填寫'}\n備註: ${notes || '未填寫'}\n`;
+        const textMessage = `#####訂單資訊\n訂單編號: ${orderNumber}\n類型: ${formType === 'instant' ? '即時叫車' : '預約叫車'}\n-----------------------------\n日期: ${date || '未填寫'}\n時間: ${time || '未填寫'}\n地點: ${location || '未填寫'}\n人數: ${numberOfPeople || '未填寫'}\n電話: ${phone ? phone : '未填寫'}\n備註: ${notes || '未填寫'}\n`;
 
         // 使用 LIFF 發送訊息到當前聊天室
         await liff.sendMessages([{
