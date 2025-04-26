@@ -199,6 +199,7 @@
     let formType = urlParams.get('formType')?.toLowerCase();
     const validFormTypes = ['instant', 'booking'];
     const error = document.getElementById('error');
+    const btn = document.getElementById('button');
     const form = document.getElementById('customForm');
 
     // LIFF ID 根據 formType 設置
@@ -309,7 +310,8 @@
     document.getElementById('customForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       error.style.display = 'none';
-
+      btn.style.display = 'none';
+      
       const userId = document.getElementById('userId').value;
       if (!userId) {
         error.textContent = '無法獲取 UserID，請確保您已加入 LINE Bot';
